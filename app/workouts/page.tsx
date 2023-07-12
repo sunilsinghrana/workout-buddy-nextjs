@@ -1,21 +1,26 @@
 import {RiDeleteBin6Line} from 'react-icons/ri'
+import getAllWorkouts from "@/lib/getAllWorkout";
 
-async function getData() {
-  const res = await fetch("http://localhost:3000/api/workouts");
-  const data = await res.json();
-  console.log(data);
-  
-  return data;
-}
+// const getAllWorkouts = async ()=>{
+//   const res = await fetch("http://localhost:3000/api/workouts");
+//   const data = await res.json
+//   return data
+// }
 
-export default async function Home() {
-  const workoutData = await getData();
 
-  return <main>
-    <div className="workouts flex justify-around my-2">
+export default async function workouts() {
+  const workoutData = await getAllWorkouts();
+  // const workoutData: Promise<Workout[]> = getAllWorkouts()
+  // const workout = await workoutData
+    console.log(workoutData);
+    
+  return (
+    <>
+    <p>All workouts will be here</p>
+      <div className="workouts flex justify-around my-2">
       <div className="w-[80%]">
         {workoutData.workouts && workoutData.workouts.map((data: any )=> (
-          <div className='w-full h-32 bg-white flex justify-between my-4' key={data._id}>
+            <div className='w-full h-32 bg-white flex justify-between my-4' key={data._id}>
           <div className='px-3'>
             <h1 className='font-bold text-2xl text-green-500 my-2'>{data.title}</h1>
             <p className='font-bold'>Load(kg): {data.load}</p>
@@ -29,6 +34,6 @@ export default async function Home() {
         ))}
     </div>
     </div>
-  </main>;
+    </>
+              )
 }
-
